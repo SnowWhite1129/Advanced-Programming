@@ -4,16 +4,20 @@
 #include "MapUnit.h"
 class Player{
 public:
-    void PayMoney(const Player &player, int money);
+    bool PayMoney(Player &player, int money);
     bool BuyLand(MapUnit &mapunit);
+    void GoToJail(){movable_ = false;}
+    void ReleaseFromJail(){movable_ = true;}
+    bool InTheJail(){ return movable_== true;}
+    void IncreaseMoney(int money) { money_ += money;}
     Player(const std::string &name);
     int id() {return id_;}
-    string name(){return name_;}
-    int location(){return location;}
+    std::string name(){return name_;}
+    int location(){return location_;}
     int num_units(){return num_units_;}
     int num_collectable_units(){return num_collectable_units_;}
     bool movable(){return movable_;}
-
+    static int numPlayer;
 private:
     int id_ = numPlayer;
     std::string name_;
@@ -21,9 +25,9 @@ private:
     int location_ = 0;
     int num_units_ = 0;
     int num_collectable_units_ = 0;
-    static int numPlayer = 0;
+
     bool movable_ = true;
-    constexpr int startmoney = 25000;
+    constexpr static int startmoney = 25000;
 };
 
 #endif // PLAYER_H_INCLUDED

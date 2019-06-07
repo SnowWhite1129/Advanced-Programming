@@ -5,7 +5,7 @@ class WorldPlayer{
 public:
 
 private:
-    constexpr int MaxPlayer = 4;
+    constexpr static int MaxPlayer = 4;
     Player players_[MaxPlayer];
 };
 
