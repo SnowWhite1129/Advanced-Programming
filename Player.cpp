@@ -22,6 +22,15 @@ bool Player::BuyLand(MapUnit &mapunit) {
         return false;
     }
 }
+bool Player::UpgradeLand(Upgradable &upgradableunit) {
+    if (money_ >= upgradableunit.GetUpgradeCost()) {
+        money_ -= upgradableunit.GetUpgradeCost();
+        upgradableunit.AddLevel();
+        return true;
+    } else{
+        return false;
+    }
+}
 bool Player::PayMoney(Player &player, int money) {
     if (money_>= money) {
         money_ -= money;
@@ -29,5 +38,19 @@ bool Player::PayMoney(Player &player, int money) {
         return true;
     } else{
         return false;
+    }
+}
+void Player::Bankrupt() {
+    name_ = "";
+    num_collectable_units_ = 0;
+    money_ = 0;
+    num_units_ = 0;
+    location_ = 0;
+}
+void Player::Move(int dice, int mapsize) {
+    if (movable_)
+    {
+        location_ += dice;
+        location_ % mapsize;
     }
 }

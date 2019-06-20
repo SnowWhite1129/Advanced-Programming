@@ -4,7 +4,10 @@
 #include "MapUnit.h"
 class Player{
 public:
+    void Move(int dice, int mapsize);
+    void Bankrupt();
     bool PayMoney(Player &player, int money);
+    bool UpgradeLand(Upgradable &upgradableunit);
     bool BuyLand(MapUnit &mapunit);
     void GoToJail(){movable_ = false;}
     void ReleaseFromJail(){movable_ = true;}
@@ -29,5 +32,4 @@ private:
     bool movable_ = true;
     constexpr static int startmoney = 25000;
 };
-
 #endif // PLAYER_H_INCLUDED
