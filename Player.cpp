@@ -1,14 +1,5 @@
 #include "Player.h"
 int Player::numPlayer = 0;
-Player::Player(const std::string &name)
-{
-    id_ = numPlayer;
-    name_ = name;
-    money_ = startmoney;
-    num_units_ = 0;
-    location_ = 0;
-    ++numPlayer;
-}
 bool Player::BuyLand(MapUnit &mapunit) {
     if (money_ >= mapunit.GetCost()){
         mapunit.SetOwner(id_);
@@ -51,6 +42,10 @@ void Player::Move(int dice, int mapsize) {
     if (movable_)
     {
         location_ += dice;
-        location_ % mapsize;
+        location_ = location_ % mapsize;
     }
+}
+std::ostream& operator<<(std::ostream &os, const Player &player){
+    os << player.id_ << player.location_ << player.money_ << player.name_ << player.num_units_;
+    return os;
 }

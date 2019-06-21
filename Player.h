@@ -1,9 +1,11 @@
 #ifndef PLAYER_H_INCLUDED
 #define PLAYER_H_INCLUDED
+#include<ostream>
 #include<string>
 #include "MapUnit.h"
 class Player{
 public:
+    friend std::ostream& operator <<(std::ostream &os, const Player& player);
     void Move(int dice, int mapsize);
     void Bankrupt();
     bool PayMoney(Player &player, int money);
@@ -13,13 +15,16 @@ public:
     void ReleaseFromJail(){movable_ = true;}
     bool InTheJail(){ return movable_== true;}
     void IncreaseMoney(int money) { money_ += money;}
-    Player(const std::string &name);
-    int id() {return id_;}
-    std::string name(){return name_;}
-    int location(){return location_;}
-    int num_units(){return num_units_;}
-    int num_collectable_units(){return num_collectable_units_;}
-    bool movable(){return movable_;}
+
+    Player(const std::string &name):id_(numPlayer), name_(name), money_(startmoney), location_(0), num_units_(0), num_collectable_units_(0){++numPlayer;}
+    Player(const char name[]):id_(numPlayer), name_(name), money_(startmoney), location_(0), num_units_(0), num_collectable_units_(0){++numPlayer;}
+
+    int id() const {return id_;}
+    std::string name() const {return name_;}
+    int location()const {return location_;}
+    int num_units()const {return num_units_;}
+    int num_collectable_units()const {return num_collectable_units_;}
+    bool movable()const {return movable_;}
     static int numPlayer;
 private:
     int id_ = numPlayer;
@@ -32,4 +37,5 @@ private:
     bool movable_ = true;
     constexpr static int startmoney = 25000;
 };
+std::ostream& operator<<(std::ostream &os, const Player& player);
 #endif // PLAYER_H_INCLUDED

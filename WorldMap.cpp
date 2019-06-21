@@ -3,8 +3,20 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
-bool WorldMap::ReadMapFile() {
-    const char filename [] = "map.dat";
+WorldMap::~WorldMap()
+{
+    for(auto it=maps.begin();it!=maps.end();it++)
+    {
+        delete *it;
+    }
+}
+WorldMap& WorldMap::operator=(const WorldMap &wm)
+{
+    maps.assign(wm.maps.begin(),wm.maps.end());
+    mapNameList.assign(wm.mapNameList.begin(),wm.mapNameList.end());
+    return *this;
+}
+bool WorldMap::ReadMapFile(const char filename []) {
     std::ifstream fin;
     fin.open(filename);
     if (!fin){
