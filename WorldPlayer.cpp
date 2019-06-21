@@ -13,3 +13,9 @@ bool WorldPlayer::AddPlayer(const Player& player){
         return false;
     }
 }
+std::ostream& operator<<(std::ostream &os, const WorldPlayer &worldPlayer){
+    for (unsigned int i = 0; i < worldPlayer.players_.size(); ++i) {
+        os << worldPlayer[i];
+    }
+    return os;
+}

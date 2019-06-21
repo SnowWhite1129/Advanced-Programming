@@ -1,5 +1,6 @@
+#include <iomanip>
 #include "Player.h"
-int Player::numPlayer = 0;
+int Player::numPlayer = 1;
 bool Player::BuyLand(MapUnit &mapunit) {
     if (money_ >= mapunit.GetCost()){
         mapunit.SetOwner(id_);
@@ -45,7 +46,33 @@ void Player::Move(int dice, int mapsize) {
         location_ = location_ % mapsize;
     }
 }
+void Player::Create(std::string name) {
+    name_ = name;
+    id_ = numPlayer;
+    num_units_ = 0;
+    num_collectable_units_ = 0;
+    location_ = 0;
+    ++numPlayer;
+}
+std::istream& operator>>(std::istream &is, Player& player){
+    is >> player.name_;
+    player.location_ = 0;
+    player.num_units_ = 0;
+    player.num_collectable_units_ = 0;
+    player.money_ = player.startmoney;
+    player.id_ = player.numPlayer;
+    ++player.numPlayer;
+    return is;
+}
 std::ostream& operator<<(std::ostream &os, const Player &player){
-    os << player.id_ << player.location_ << player.money_ << player.name_ << player.num_units_;
+    os << "  ["<< player.id_ << "]"<< std::setw(20) << player.name_ << "  $" << player.money_  <<  " with" <<player.num_units_ << " units" << std::endl;
     return os;
+}
+Player& Player::operator=(const Player &player) {
+    name_ = player.name_;
+    id_ = player.id_;
+    num_units_ = player.num_units_;
+    num_collectable_units_ = player.num_collectable_units_;
+    money_ = player.money_;
+    location_ = player.location_;
 }

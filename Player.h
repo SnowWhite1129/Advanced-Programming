@@ -6,6 +6,8 @@
 class Player{
 public:
     friend std::ostream& operator <<(std::ostream &os, const Player& player);
+    friend std::istream& operator >>(std::istream &is, Player& player);
+    Player&operator =(const Player& player);
     void Move(int dice, int mapsize);
     void Bankrupt();
     bool PayMoney(Player &player, int money);
@@ -16,6 +18,7 @@ public:
     bool InTheJail(){ return movable_== true;}
     void IncreaseMoney(int money) { money_ += money;}
 
+    Player() = default;
     Player(const std::string &name):id_(numPlayer), name_(name), money_(startmoney), location_(0), num_units_(0), num_collectable_units_(0){++numPlayer;}
     Player(const char name[]):id_(numPlayer), name_(name), money_(startmoney), location_(0), num_units_(0), num_collectable_units_(0){++numPlayer;}
 
@@ -25,8 +28,10 @@ public:
     int num_units()const {return num_units_;}
     int num_collectable_units()const {return num_collectable_units_;}
     bool movable()const {return movable_;}
+    int money()const { return money_;}
     static int numPlayer;
 private:
+    void Create(std::string name);
     int id_ = numPlayer;
     std::string name_;
     int money_ = startmoney;
@@ -38,4 +43,5 @@ private:
     constexpr static int startmoney = 25000;
 };
 std::ostream& operator<<(std::ostream &os, const Player& player);
+std::istream& operator>>(std::istream &os, const Player& player);
 #endif // PLAYER_H_INCLUDED

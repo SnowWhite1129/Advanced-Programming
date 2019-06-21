@@ -4,6 +4,7 @@
 #include "Player.h"
 class WorldPlayer{
 public:
+    friend std::ostream& operator <<(std::ostream &os, const WorldPlayer& worldPlayer);
     WorldPlayer(std::vector <std::string> &name);
     bool AddPlayer(const Player& player);
     Player&operator [](int id){ return players_[id];}
@@ -12,7 +13,7 @@ public:
 private:
     std::vector<Player> players_;
 };
-
+std::ostream& operator<<(std::ostream &os, const WorldPlayer& worldPlayer);
 #endif // WORLDPLAYER_H_INCLUDED
 
 
