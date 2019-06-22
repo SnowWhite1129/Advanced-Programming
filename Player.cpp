@@ -35,7 +35,7 @@ bool Player::PayMoney(Player &player, int money) {
 void Player::Bankrupt() {
     name_ = "";
     num_collectable_units_ = 0;
-    money_ = 0;
+    money_ = -1;
     num_units_ = 0;
     location_ = 0;
 }

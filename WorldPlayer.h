@@ -9,6 +9,7 @@ public:
     bool AddPlayer(const Player& player);
     Player&operator [](int id){ return players_[id];}
     const Player & operator[](int id) const { return players_[id];}
+    int numBankrupt() const ;
     constexpr static int MaxPlayer = 4;
 private:
     std::vector<Player> players_;

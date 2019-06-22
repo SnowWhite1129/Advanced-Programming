@@ -13,6 +13,15 @@ bool WorldPlayer::AddPlayer(const Player& player){
         return false;
     }
 }
+int WorldPlayer::numBankrupt() const {
+    int n=0;
+    for (unsigned int i = 0; i < players_.size(); ++i) {
+        if (players_[i].money() < 0){
+            ++n;
+        }
+    }
+    return n;
+}
 std::ostream& operator<<(std::ostream &os, const WorldPlayer &worldPlayer){
     for (unsigned int i = 0; i < worldPlayer.players_.size(); ++i) {
         os << worldPlayer[i];
