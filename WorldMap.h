@@ -10,7 +10,7 @@ public:
     WorldMap(const WorldMap &wm):maps(wm.GetMaps()),mapNameList(GetMapNameList()){}
     ~WorldMap();
     WorldMap &operator=(const WorldMap &wm);
-    bool ReadMapFile(const char filename []);
+    bool ReadMapFile();
     void PrintMapFile() const;
     int Size(){return maps.size();}
     std::vector<std::string> &GetMapNameList(){return mapNameList;}
@@ -18,6 +18,8 @@ public:
     const MapUnit &operator[](int index)const{return *(maps[index]);}
     const std::vector<MapUnit*>GetMaps()const{return maps;}
     const std::vector<std::string>GetMapNameList()const{return mapNameList;}
+    void BankRupt(int playerID);
+    WorldMap* Clone(){return new WorldMap(*this);}
 private:
     std::vector<MapUnit*> maps;
     std::vector<std::string> mapNameList;
